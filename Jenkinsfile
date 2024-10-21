@@ -6,25 +6,52 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
                 checkout scm
-                sh 'python3 -m pip install --upgrade pip && pip install -r requirements.txt'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    // Use pip module for installation
+                    def command = '''
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    '''
+                    sh command
+                }
             }
         }
 
         stage('Test') {
             steps {
-                sh 'python3 -m pip install --upgrade pip && pip install -r requirements.txt'
-                sh 'python -m unittest test_midterm.py'
+                script {
+                    def command = '''
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                    python -m unittest test_midterm.py
+                    '''
+                    sh command
+                }
             }
         }
 
         stage('Push Docker') {
             steps {
-                sh 'docker build -t leesa007/python-jenkins:latest .'
-                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push leesa007/python-jenkins:latest'
+                script {
+                    def command = '''
+                    docker build -t leesa007/python-jenkins:latest .
+                    '''
+                    sh command
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        def dockerLoginCommand = '''
+                        echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                        docker push leesa007/python-jenkins:latest
+                        '''
+                        sh dockerLoginCommand
+                    }
                 }
             }
         }
