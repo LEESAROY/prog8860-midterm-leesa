@@ -13,22 +13,12 @@ pipeline {
         }
 
         stage('Build') {
-            agent {
-                docker {
-                    image 'python:3.8'
-                }
-            }
             steps {
                 sh 'python3 -m pip install --upgrade pip && pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
-            agent {
-                docker {
-                    image 'python:3.8'
-                }
-            }
             steps {
                 sh 'python3 -m pip install --upgrade pip && pip install -r requirements.txt'
                 sh 'python -m unittest test_midterm.py'
@@ -36,11 +26,6 @@ pipeline {
         }
 
         stage('Push Docker') {
-            agent {
-                docker {
-                    image 'docker:latest'
-                }
-            }
             steps {
                 sh 'docker build -t leesa007/python-jenkins:latest .'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
