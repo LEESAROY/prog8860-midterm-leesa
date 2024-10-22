@@ -1,4 +1,5 @@
-# prog8860-midterm-leesa
+# prog8860-midterm-leesa is the github repo
+Link to Github repo: https://github.com/LEESAROY/prog8860-midterm-leesa.git
 
 # Repository structure
 We have created the repository prog8860-midterm-leesa
@@ -43,11 +44,13 @@ then we have to go to http://localhost:5000/
 We have configured the ci.yml file in such a way so whenever we will push anything to the feature branch or create a pull request to master then it will get triggered automatically.
 We can re-run the job also from Action -> workflows
 Also we can check the previous builds.
+Inside each build we have separate stages.
+We can check teh logs in the console.
 
 # Pulling the Docker Image from the Registry
 
 login into dockerhub:
-docker login -u <your-docker-username> -p <your-docker-password>
+docker login -u <docker-username> -p <docker-password>
 
 pull the image:
 docker pull leesa007/python-jenkins:latest
@@ -62,5 +65,5 @@ we can check in http://localhost:5000/ It will display "This is midterm exam!"
 We need to install Jenkins and need to make sure it can access the github repository.
 We can go to Jenkins Dashboard
 We need to create a new Pipeline job
-Inside the pipeline configuration we can use the repository URL https://github.com/LEESAROY/prog8860-midterm-leesa.git and set the script path to `Jenkinsfile`. Also we can mention the checkout branch name.
+Inside the pipeline configuration we can use the repository URL https://github.com/LEESAROY/prog8860-midterm-leesa.git and set the script path to 'Jenkinsfile'. Also we can mention the code checkout branch name.
 We can trigger the build manually by clicking on 'build now'.
