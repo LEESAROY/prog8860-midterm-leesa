@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        PATH = "C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
+        // PATH = "C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
     }
 
     stages {
@@ -18,7 +18,6 @@ pipeline {
                 bat 'py -m venv flask'
                 bat 'flask\\Scripts\\activate && py -m pip install --upgrade pip'
                 bat 'flask\\Scripts\\activate && pip install -r requirements.txt'
-                bat 'flask\\Scripts\\activate && pip show Flask'
             }
         }
 
@@ -26,7 +25,6 @@ pipeline {
             steps {
                 bat 'flask\\Scripts\\activate && py -m pip install --upgrade pip'
                 bat 'flask\\Scripts\\activate && pip install -r requirements.txt'
-                bat 'flask\\Scripts\\activate && pip show Flask'
                 bat 'flask\\Scripts\\activate && py -m unittest test_midterm.py'
             }
         }
