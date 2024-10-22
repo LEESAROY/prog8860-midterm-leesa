@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        PATH = "C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312;C:\\Users\\keval\\AppData\\Local\\Programs\\Python\\Python312\\Scripts;${env.PATH}"
     }
 
     stages {
