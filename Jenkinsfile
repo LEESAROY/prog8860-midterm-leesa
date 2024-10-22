@@ -23,8 +23,6 @@ pipeline {
 
         stage('Test') {
             steps {
-                bat 'flask\\Scripts\\activate && py -m pip install --upgrade pip'
-                bat 'flask\\Scripts\\activate && pip install -r requirements.txt'
                 bat 'flask\\Scripts\\activate && py -m unittest test_midterm.py'
             }
         }
@@ -33,9 +31,7 @@ pipeline {
             steps {
                 bat 'docker build -t leesa007/python-jenkins:latest .'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    println("U: ${DOCKER_USERNAME}")
-                    println("P: ${DOCKER_PASSWORD}")
-                    bat 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push leesa007/python-jenkins:latest'
+                    bat 'echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin && docker push leesa007/python-jenkins:latest'
                 }
             }
         }
