@@ -14,13 +14,15 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'py -m pip install --upgrade pip && pip install -r requirements.txt'
+                bat 'py -m pip install --upgrade pip'
+                bat 'pip install -r requirements.txt'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'py -m pip install --upgrade pip && pip install -r requirements.txt'
+                bat 'py -m pip install --upgrade pip'
+                bat 'pip install -r requirements.txt'
                 bat 'py -m unittest test_midterm.py'
             }
         }
