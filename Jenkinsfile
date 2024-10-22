@@ -33,6 +33,8 @@ pipeline {
             steps {
                 bat 'docker build -t leesa007/python-jenkins:latest .'
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    println("U: ${DOCKER_USERNAME}")
+                    println("P: ${DOCKER_PASSWORD}")
                     bat 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin && docker push leesa007/python-jenkins:latest'
                 }
             }
