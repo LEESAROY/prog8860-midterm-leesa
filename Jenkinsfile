@@ -15,18 +15,19 @@ pipeline {
 
         stage('Build') {
             steps {
-                bat 'py -m pip install --upgrade pip'
-                bat 'pip install -r requirements.txt'
-                bat 'pip show Flask'
+                bat 'py -m venv flask'
+                bat 'flask\\Scripts\\activate && py -m pip install --upgrade pip'
+                bat 'flask\\Scripts\\activate && pip install -r requirements.txt'
+                bat 'flask\\Scripts\\activate && pip show Flask'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'py -m pip install --upgrade pip'
-                bat 'pip install -r requirements.txt'
-                bat 'pip show Flask'
-                bat 'py -m unittest test_midterm.py'
+                bat 'flask\\Scripts\\activate && py -m pip install --upgrade pip'
+                bat 'flask\\Scripts\\activate && pip install -r requirements.txt'
+                bat 'flask\\Scripts\\activate && pip show Flask'
+                bat 'flask\\Scripts\\activate && py -m unittest test_midterm.py'
             }
         }
 
