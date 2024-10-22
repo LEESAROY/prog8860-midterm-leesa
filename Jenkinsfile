@@ -16,6 +16,7 @@ pipeline {
             steps {
                 bat 'py -m pip install --upgrade pip'
                 bat 'pip install -r requirements.txt'
+                bat 'pip show Flask'
             }
         }
 
@@ -23,6 +24,7 @@ pipeline {
             steps {
                 bat 'py -m pip install --upgrade pip'
                 bat 'pip install -r requirements.txt'
+                bat 'pip show Flask'
                 bat 'py -m unittest test_midterm.py'
             }
         }
